@@ -1,0 +1,8 @@
+/target
+/pkg
+/bin
+/static/node_modules/*
+**/*.rs.bk
+Cargo.lock
+*.log
+package-lock.json
