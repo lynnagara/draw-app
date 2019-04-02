@@ -1,10 +1,10 @@
 extern crate wasm_bindgen;
 
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
-use web_sys::{MouseEvent, CanvasRenderingContext2d, HtmlCanvasElement};
 use std::cell::RefCell;
 use std::rc::Rc;
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement, MouseEvent};
 
 use crate::state::State;
 
@@ -30,7 +30,7 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
 
         canvas.add_event_listener_with_callback(
             "mousedown",
-            handle_mouse_down.as_ref().unchecked_ref()
+            handle_mouse_down.as_ref().unchecked_ref(),
         )?;
 
         handle_mouse_down.forget();
@@ -47,12 +47,11 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
             context_copy.fill_rect(new_x, new_y, 1.0, 1.0);
             context_copy.line_to(new_x, new_y);
             context_copy.stroke();
-
         }) as Box<dyn FnMut(_)>);
 
         canvas.add_event_listener_with_callback(
             "mouseup",
-            handle_mouse_up.as_ref().unchecked_ref()
+            handle_mouse_up.as_ref().unchecked_ref(),
         )?;
 
         handle_mouse_up.forget();
@@ -74,11 +73,10 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
 
         canvas.add_event_listener_with_callback(
             "mousemove",
-            handle_mouse_move.as_ref().unchecked_ref()
+            handle_mouse_move.as_ref().unchecked_ref(),
         )?;
 
         handle_mouse_move.forget();
-
     }
 
     Ok(())

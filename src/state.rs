@@ -1,10 +1,10 @@
 pub struct State {
-    is_drawing: bool
+    is_drawing: bool,
 }
 
 impl State {
     pub fn new() -> State {
-        State{is_drawing: false}
+        State { is_drawing: false }
     }
 
     pub fn start_drawing(&mut self) {
