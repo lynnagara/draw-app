@@ -26,5 +26,6 @@ features  = [
   'HtmlCanvasElement',
   'CanvasRenderingContext2d',
   'EventTarget',
+  'MouseEvent',
   'console',
  ]
