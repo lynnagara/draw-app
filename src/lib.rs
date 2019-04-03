@@ -14,7 +14,7 @@ static TOOLBAR_WIDTH: u32 = 50;
 
 #[wasm_bindgen]
 pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
-    let state: Rc<RefCell<state::State>> = Rc::new(RefCell::new(state::State::new()));
+    let state: Rc<RefCell<state::State>> = Rc::new(RefCell::new(state::State::new(w, h)));
 
     let window = window().expect("Could not find `window`");
     let document = window.document().expect("Could not find `document`");

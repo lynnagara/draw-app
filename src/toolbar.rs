@@ -53,5 +53,9 @@ pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue>
         handle_click.forget();
     }
 
+    {
+        
+    }
+
     Ok(())
 }

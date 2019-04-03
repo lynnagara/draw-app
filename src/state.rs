@@ -12,14 +12,18 @@ pub static PEN_SIZES: [f64; 3] = [1.0, 2.0, 4.0];
 static DEFAULT_PEN_SIZE: f64 = PEN_SIZES[0];
 
 pub struct State {
+    width: u32,
+    height: u32,
     is_drawing: bool,
     color: String,
     pen_size: f64,
 }
 
 impl State {
-    pub fn new() -> State {
+    pub fn new(w: u32, h:u32) -> State {
         State {
+            width: w,
+            height: h,
             is_drawing: false,
             color: DEFAULT_COLOR.to_string(),
             pen_size: DEFAULT_PEN_SIZE,
