@@ -42,8 +42,6 @@ pub fn init() -> Result<(), JsValue> {
     body.append_child(&toolbar_el)?;
     toolbar::init(&toolbar_el, &canvas_el, &state);
 
-    web_sys::console::log_1(&format!("{:?}", body.client_height()).into());
-
     Ok(())
 }
 
