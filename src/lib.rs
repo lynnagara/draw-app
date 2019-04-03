@@ -20,15 +20,21 @@ pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
     let document = window.document().expect("Could not find `document`");
     let body = document.body().expect("Could not find `body` element");
 
+    let root = document.create_element("div")?;
+    root.set_attribute(
+        "style",
+        "min-height: 100%; border-right: 1px solid #efefef;",
+    );
+
+    body.append_child(&root);
+
     let canvas_el = document
         .create_element("canvas")?
         .dyn_into::<HtmlCanvasElement>()?;
     canvas_el.set_width(w - TOOLBAR_WIDTH);
     canvas_el.set_height(h);
-    canvas_el.set_attribute("style", "border: 1px solid #efefef;");
 
-
-    body.append_child(&canvas_el)?;
+    root.append_child(&canvas_el)?;
     canvas::init(canvas_el, &state);
 
     let toolbar_el = document.create_element("div")?.dyn_into::<Element>()?;
