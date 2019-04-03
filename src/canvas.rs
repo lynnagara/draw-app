@@ -25,6 +25,8 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
             state_copy.borrow_mut().start_drawing();
             let new_x = event.x() as f64;
             let new_y = event.y() as f64;
+            let x = JsValue::from(state_copy.borrow().get_color());
+            context_copy.set_stroke_style(&x);
             context_copy.move_to(new_x, new_y);
         }) as Box<dyn FnMut(_)>);
 
@@ -61,9 +63,8 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
         let context_copy = context.clone();
         let state_copy = state.clone();
         let handle_mouse_move = Closure::wrap(Box::new(move |event: MouseEvent| {
-            let is_drawing = state_copy.borrow();
 
-            if is_drawing.is_drawing() {
+            if state_copy.borrow().is_drawing() {
                 let new_x = event.x() as f64;
                 let new_y = event.y() as f64;
                 context_copy.line_to(new_x, new_y);

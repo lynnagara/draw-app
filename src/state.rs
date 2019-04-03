@@ -1,10 +1,19 @@
+pub static COLORS: [(&str, &str); 2] = [
+    ("Black", "#000000"),
+    ("Green", "#3DC06C")
+];
+
 pub struct State {
     is_drawing: bool,
+    color: String,
 }
 
 impl State {
     pub fn new() -> State {
-        State { is_drawing: false }
+        State {
+            is_drawing: false,
+            color: "#000000".to_string(),
+        }
     }
 
     pub fn start_drawing(&mut self) {
@@ -17,5 +26,13 @@ impl State {
 
     pub fn is_drawing(&self) -> bool {
         self.is_drawing
+    }
+
+    pub fn update_color(&mut self, color: String)  {
+        self.color = color;
+    }
+
+    pub fn get_color(&self) -> String {
+        self.color.clone()
     }
 }

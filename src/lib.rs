@@ -31,7 +31,7 @@ pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
     let toolbar_el = document.create_element("div")?.dyn_into::<Element>()?;
     toolbar_el.set_attribute("style", "width:100%;");
     body.append_child(&toolbar_el)?;
-    toolbar::init(toolbar_el, document);
+    toolbar::init(toolbar_el, &state);
 
     Ok(())
 }
