@@ -63,7 +63,6 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
         let context_copy = context.clone();
         let state_copy = state.clone();
         let handle_mouse_move = Closure::wrap(Box::new(move |event: MouseEvent| {
-
             if state_copy.borrow().is_drawing() {
                 let new_x = event.x() as f64;
                 let new_y = event.y() as f64;
