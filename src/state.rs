@@ -7,7 +7,7 @@ pub static COLORS: [(&str, &str); 4] = [
 
 static DEFAULT_COLOR: &str = COLORS[0].1;
 
-pub static PEN_SIZES: [f64; 3] = [1.0, 2.0, 4.0];
+pub static PEN_SIZES: [f64; 4] = [1.0, 2.0, 4.0, 8.0];
 
 static DEFAULT_PEN_SIZE: f64 = PEN_SIZES[0];
 
@@ -20,7 +20,7 @@ pub struct State {
 }
 
 impl State {
-    pub fn new(w: u32, h:u32) -> State {
+    pub fn new(w: u32, h: u32) -> State {
         State {
             width: w,
             height: h,
