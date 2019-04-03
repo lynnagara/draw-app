@@ -63,7 +63,7 @@ pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue>
 
     {
         let el = document.create_element("div")?;
-        el.set_attribute("style", "height: 50px; display: flex; align-items: center; justify-content: center; font-size: 11px;");
+        el.set_attribute("style", "height: 50px; display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: default;");
         el.set_inner_html("clear");
         toolbar.append_child(&el)?;
     }
