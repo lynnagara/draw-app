@@ -1,10 +1,11 @@
 extern crate wasm_bindgen;
 
 use std::cell::RefCell;
+use std::cmp::{max, min};
 use std::rc::Rc;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::{window, Element, HtmlCanvasElement};
+use web_sys::{window, Element, HtmlCanvasElement, HtmlElement};
 
 mod canvas;
 mod state;
@@ -13,12 +14,14 @@ mod toolbar;
 static TOOLBAR_WIDTH: u32 = 50;
 
 #[wasm_bindgen]
-pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
-    let state: Rc<RefCell<state::State>> = Rc::new(RefCell::new(state::State::new(w, h)));
-
+pub fn init() -> Result<(), JsValue> {
     let window = window().expect("Could not find `window`");
     let document = window.document().expect("Could not find `document`");
     let body = document.body().expect("Could not find `body` element");
+
+    let (w, h) = get_dimensions(&body);
+
+    let state: Rc<RefCell<state::State>> = Rc::new(RefCell::new(state::State::new(w, h)));
 
     let root = document.create_element("div")?;
     root.set_attribute("style", "min-height: 100%;");
@@ -39,5 +42,17 @@ pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
     body.append_child(&toolbar_el)?;
     toolbar::init(toolbar_el, &state);
 
+    web_sys::console::log_1(&format!("{:?}", body.client_height()).into());
+
     Ok(())
+}
+
+fn get_dimensions(body: &HtmlElement) -> (u32, u32) {
+    let client_width = body.client_width() as u32;
+    let client_height = body.client_height() as u32;
+
+    let width = min(max(client_width, 600), 3000);
+    let height = min(max(client_height, 400), 2000);
+
+    (width, height)
 }
