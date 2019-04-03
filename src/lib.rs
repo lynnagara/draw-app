@@ -25,6 +25,9 @@ pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
         .dyn_into::<HtmlCanvasElement>()?;
     canvas_el.set_width(w - TOOLBAR_WIDTH);
     canvas_el.set_height(h);
+    canvas_el.set_attribute("style", "border: 1px solid #efefef;");
+
+
     body.append_child(&canvas_el)?;
     canvas::init(canvas_el, &state);
 
