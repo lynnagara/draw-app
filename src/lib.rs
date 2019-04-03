@@ -21,10 +21,7 @@ pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
     let body = document.body().expect("Could not find `body` element");
 
     let root = document.create_element("div")?;
-    root.set_attribute(
-        "style",
-        "min-height: 100%; border-right: 1px solid #efefef;",
-    );
+    root.set_attribute("style", "min-height: 100%;");
 
     body.append_child(&root);
 
@@ -38,7 +35,7 @@ pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
     canvas::init(canvas_el, &state);
 
     let toolbar_el = document.create_element("div")?.dyn_into::<Element>()?;
-    toolbar_el.set_attribute("style", "width:100%;");
+    toolbar_el.set_attribute("style", "width:100%; border-left: 1px solid #efefef;");
     body.append_child(&toolbar_el)?;
     toolbar::init(toolbar_el, &state);
 

@@ -10,12 +10,14 @@ use crate::state::{State, COLORS, PEN_SIZES};
 pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue> {
     let document = window().unwrap().document().unwrap();
 
+    let generic_box_styles = "height: 50px; border-bottom: 1px solid #efefef; display: flex; align-items: center; justify-content: center;";
+
     for (_name, hex) in COLORS.iter() {
         let el = document.create_element("div")?;
 
         el.set_attribute(
             "style",
-            &format!("height: 50px; background-color: {};", hex),
+            &format!("{} background-color: {};", generic_box_styles, hex),
         );
 
         let state_copy = state.clone();
@@ -34,10 +36,7 @@ pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue>
     for size in PEN_SIZES.iter() {
         let el = document.create_element("div")?;
 
-        el.set_attribute(
-            "style",
-            "height: 50px; display: flex; align-items: center; justify-content: center;",
-        );
+        el.set_attribute("style", generic_box_styles);
         toolbar.append_child(&el)?;
 
         let inner_el = document.create_element("div")?;
@@ -63,7 +62,10 @@ pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue>
 
     {
         let el = document.create_element("div")?;
-        el.set_attribute("style", "height: 50px; display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: default;");
+        el.set_attribute(
+            "style",
+            &format!("{} font-size: 11px; cursor: default;", generic_box_styles),
+        );
         el.set_inner_html("clear");
         toolbar.append_child(&el)?;
     }
