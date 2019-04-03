@@ -1,15 +1,13 @@
-pub static COLORS: [(&str, &str); 2] = [
+pub static COLORS: [(&str, &str); 4] = [
     ("Black", "#000000"),
-    ("Green", "#3DC06C")
+    ("Green", "#3DC06C"),
+    ("Red", "#FF0000"),
+    ("White", "#FFFFFF"),
 ];
 
 static DEFAULT_COLOR: &str = COLORS[0].1;
 
-pub static PEN_SIZES: [f64; 3] = [
-    1.0,
-    2.0,
-    3.0,
-];
+pub static PEN_SIZES: [f64; 3] = [1.0, 2.0, 4.0];
 
 static DEFAULT_PEN_SIZE: f64 = PEN_SIZES[0];
 

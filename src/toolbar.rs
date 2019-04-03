@@ -8,11 +8,9 @@ use web_sys::{window, Element};
 use crate::state::{State, COLORS, PEN_SIZES};
 
 pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue> {
-
     let document = window().unwrap().document().unwrap();
 
     for (_name, hex) in COLORS.iter() {
-
         let el = document.create_element("div")?;
 
         el.set_attribute(
@@ -36,17 +34,11 @@ pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue>
     for size in PEN_SIZES.iter() {
         let el = document.create_element("div")?;
 
-        el.set_attribute(
-            "style",
-            "height: 50px;",
-        );
+        el.set_attribute("style", "height: 50px;");
         toolbar.append_child(&el)?;
 
         let inner_el = document.create_element("div")?;
-        inner_el.set_attribute(
-            "style",
-            "border-radius: 50%;"
-        );
+        inner_el.set_attribute("style", "border-radius: 50%;");
         inner_el.set_inner_html(&format!("{:?}", size));
         el.append_child(&inner_el);
 
@@ -59,7 +51,6 @@ pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue>
         el.add_event_listener_with_callback("click", handle_click.as_ref().unchecked_ref())?;
 
         handle_click.forget();
-
     }
 
     Ok(())
