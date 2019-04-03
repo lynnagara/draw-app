@@ -23,9 +23,9 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
             state_copy.borrow_mut().start_drawing();
             let new_x = event.x() as f64;
             let new_y = event.y() as f64;
-            let x = JsValue::from(state_copy.borrow().get_color());
             context_copy.begin_path();
-            context_copy.set_stroke_style(&x);
+            context_copy.set_stroke_style(&JsValue::from(state_copy.borrow().get_color()));
+            context_copy.set_line_width(state_copy.borrow().get_pen_size());
             context_copy.move_to(new_x, new_y);
         }) as Box<dyn FnMut(_)>);
 

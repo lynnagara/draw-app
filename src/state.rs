@@ -1,10 +1,22 @@
-pub static COLORS: [(&str, &str); 2] = [("Black", "#000000"), ("Green", "#3DC06C")];
+pub static COLORS: [(&str, &str); 2] = [
+    ("Black", "#000000"),
+    ("Green", "#3DC06C")
+];
 
 static DEFAULT_COLOR: &str = COLORS[0].1;
+
+pub static PEN_SIZES: [f64; 3] = [
+    1.0,
+    2.0,
+    3.0,
+];
+
+static DEFAULT_PEN_SIZE: f64 = PEN_SIZES[0];
 
 pub struct State {
     is_drawing: bool,
     color: String,
+    pen_size: f64,
 }
 
 impl State {
@@ -12,6 +24,7 @@ impl State {
         State {
             is_drawing: false,
             color: DEFAULT_COLOR.to_string(),
+            pen_size: DEFAULT_PEN_SIZE,
         }
     }
 
@@ -33,5 +46,13 @@ impl State {
 
     pub fn get_color(&self) -> String {
         self.color.clone()
+    }
+
+    pub fn update_pen_size(&mut self, size: f64) {
+        self.pen_size = size;
+    }
+
+    pub fn get_pen_size(&self) -> f64 {
+        self.pen_size
     }
 }
