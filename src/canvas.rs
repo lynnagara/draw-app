@@ -16,8 +16,6 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
         .dyn_into::<CanvasRenderingContext2d>()
         .unwrap();
 
-    context.begin_path();
-
     {
         let context_copy = context.clone();
         let state_copy = state.clone();
@@ -26,6 +24,7 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
             let new_x = event.x() as f64;
             let new_y = event.y() as f64;
             let x = JsValue::from(state_copy.borrow().get_color());
+            context_copy.begin_path();
             context_copy.set_stroke_style(&x);
             context_copy.move_to(new_x, new_y);
         }) as Box<dyn FnMut(_)>);

@@ -8,9 +8,6 @@ use web_sys::{window, Element};
 use crate::state::{State, COLORS};
 
 pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue> {
-
-
-    
     for (_name, hex) in COLORS.iter() {
         let document = window().unwrap().document().unwrap();
 
@@ -21,13 +18,11 @@ pub fn init(toolbar: Element, state: &Rc<RefCell<State>>) -> Result<(), JsValue>
             &format!("height: 50px; background-color: {};", hex),
         );
 
-
         let state_copy = state.clone();
 
         let handle_click = Closure::wrap(Box::new(move || {
             state_copy.borrow_mut().update_color(hex.to_string());
         }) as Box<dyn FnMut()>);
-
 
         el.add_event_listener_with_callback("click", handle_click.as_ref().unchecked_ref())?;
 
