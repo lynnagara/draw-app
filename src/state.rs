@@ -57,4 +57,12 @@ impl State {
     pub fn get_pen_size(&self) -> f64 {
         self.pen_size
     }
+
+    pub fn get_width(&self) -> u32 {
+        self.width
+    }
+
+    pub fn get_height(&self) -> u32 {
+        self.height
+    }
 }

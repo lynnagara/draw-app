@@ -35,12 +35,12 @@ pub fn init() -> Result<(), JsValue> {
     canvas_el.set_height(h);
 
     root.append_child(&canvas_el)?;
-    canvas::init(canvas_el, &state);
+    canvas::init(&canvas_el, &state);
 
     let toolbar_el = document.create_element("div")?.dyn_into::<Element>()?;
     toolbar_el.set_attribute("style", "width:100%; border-left: 1px solid #efefef;");
     body.append_child(&toolbar_el)?;
-    toolbar::init(toolbar_el, &state);
+    toolbar::init(&toolbar_el, &canvas_el, &state);
 
     web_sys::console::log_1(&format!("{:?}", body.client_height()).into());
 

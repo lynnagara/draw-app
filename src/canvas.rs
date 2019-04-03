@@ -8,7 +8,7 @@ use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement, MouseEvent};
 
 use crate::state::State;
 
-pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(), JsValue> {
+pub fn init(canvas: &HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(), JsValue> {
     let context = canvas
         .get_context("2d")
         .expect("Could not get context")
