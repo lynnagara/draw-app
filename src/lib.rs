@@ -29,10 +29,9 @@ pub fn init(w: u32, h: u32) -> Result<(), JsValue> {
     canvas::init(canvas_el, &state);
 
     let toolbar_el = document.create_element("div")?.dyn_into::<Element>()?;
-    // toolbar_el.set_width(TOOLBAR_WIDTH);
-    // toolbar_el.set_height(h);
+    toolbar_el.set_attribute("style", "width:100%;");
     body.append_child(&toolbar_el)?;
-    toolbar::init(toolbar_el);
+    toolbar::init(toolbar_el, document);
 
     Ok(())
 }

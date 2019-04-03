@@ -18,14 +18,15 @@ serde_json = "1.0"
 [dependencies.web-sys]
 version = "0.3.4"
 features  = [
+  'CanvasRenderingContext2d',
+  'console',
+  'CssStyleDeclaration',
   'Document',
   'Element',
+  'EventTarget',
+  'HtmlCanvasElement',
   'HtmlElement',
+  'MouseEvent',
   'Node',
   'Window',
-  'HtmlCanvasElement',
-  'CanvasRenderingContext2d',
-  'EventTarget',
-  'MouseEvent',
-  'console',
  ]
