@@ -21,8 +21,8 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
         let state_copy = state.clone();
         let handle_mouse_down = Closure::wrap(Box::new(move |event: MouseEvent| {
             state_copy.borrow_mut().start_drawing();
-            let new_x = event.x() as f64;
-            let new_y = event.y() as f64;
+            let new_x = event.offset_x() as f64;
+            let new_y = event.offset_y() as f64;
             context_copy.begin_path();
             context_copy.set_stroke_style(&JsValue::from(state_copy.borrow().get_color()));
             context_copy.set_line_width(state_copy.borrow().get_pen_size());
@@ -43,8 +43,8 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
 
         let handle_mouse_up = Closure::wrap(Box::new(move |event: MouseEvent| {
             state_copy.borrow_mut().stop_drawing();
-            let new_x = event.x() as f64;
-            let new_y = event.y() as f64;
+            let new_x = event.offset_x() as f64;
+            let new_y = event.offset_y() as f64;
             context_copy.fill_rect(new_x, new_y, 1.0, 1.0);
             context_copy.line_to(new_x, new_y);
             context_copy.stroke();
@@ -63,8 +63,8 @@ pub fn init(canvas: HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<(),
         let state_copy = state.clone();
         let handle_mouse_move = Closure::wrap(Box::new(move |event: MouseEvent| {
             if state_copy.borrow().is_drawing() {
-                let new_x = event.x() as f64;
-                let new_y = event.y() as f64;
+                let new_x = event.offset_x() as f64;
+                let new_y = event.offset_y() as f64;
                 context_copy.line_to(new_x, new_y);
                 context_copy.stroke();
             }
