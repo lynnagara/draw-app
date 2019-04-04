@@ -17,6 +17,7 @@ pub struct State {
     is_drawing: bool,
     color: String,
     pen_size: f64,
+    undo_list: Vec<String>,
 }
 
 impl State {
@@ -27,6 +28,7 @@ impl State {
             is_drawing: false,
             color: DEFAULT_COLOR.to_string(),
             pen_size: DEFAULT_PEN_SIZE,
+            undo_list: vec!(),
         }
     }
 
@@ -64,5 +66,13 @@ impl State {
 
     pub fn get_height(&self) -> u32 {
         self.height
+    }
+
+    pub fn add_undo_state(&mut self, prev: String) {
+        self.undo_list.push(prev);
+    }
+
+    pub fn undo(&mut self) -> Option<String> {
+        self.undo_list.pop()
     }
 }
