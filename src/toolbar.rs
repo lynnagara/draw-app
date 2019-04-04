@@ -3,7 +3,10 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::{window, CanvasRenderingContext2d, Document, Element, HtmlCanvasElement, HtmlElement, HtmlImageElement};
+use web_sys::{
+    window, CanvasRenderingContext2d, Document, Element, HtmlCanvasElement, HtmlElement,
+    HtmlImageElement,
+};
 
 use crate::state::{State, COLORS, PEN_SIZES};
 
@@ -92,7 +95,11 @@ fn get_pen_size_element(
     Ok(el)
 }
 
-fn get_clear_element(document: &Document, state: &Rc<RefCell<State>>, canvas: &HtmlCanvasElement) -> Result<Element, JsValue> {
+fn get_clear_element(
+    document: &Document,
+    state: &Rc<RefCell<State>>,
+    canvas: &HtmlCanvasElement,
+) -> Result<Element, JsValue> {
     let el = document.create_element("div")?;
 
     el.set_attribute(
@@ -102,6 +109,8 @@ fn get_clear_element(document: &Document, state: &Rc<RefCell<State>>, canvas: &H
     el.set_inner_html("clear");
 
     let state_copy = state.clone();
+
+    let canvas_copy = canvas.clone();
 
     let context = canvas
         .get_context("2d")
@@ -117,6 +126,10 @@ fn get_clear_element(document: &Document, state: &Rc<RefCell<State>>, canvas: &H
             state_copy.borrow().get_width() as f64,
             state_copy.borrow().get_height() as f64,
         );
+
+        state_copy
+            .borrow_mut()
+            .add_undo_state(canvas_copy.to_data_url().unwrap());
     }) as Box<dyn FnMut()>);
 
     el.add_event_listener_with_callback("click", handle_click.as_ref().unchecked_ref())?;
@@ -126,7 +139,11 @@ fn get_clear_element(document: &Document, state: &Rc<RefCell<State>>, canvas: &H
     Ok(el)
 }
 
-fn get_undo_element(document: &Document, state: &Rc<RefCell<State>>, canvas: &HtmlCanvasElement) -> Result<Element, JsValue> {
+fn get_undo_element(
+    document: &Document,
+    state: &Rc<RefCell<State>>,
+    canvas: &HtmlCanvasElement,
+) -> Result<Element, JsValue> {
     let el = document.create_element("div")?;
 
     el.set_attribute(
@@ -163,14 +180,8 @@ fn get_undo_element(document: &Document, state: &Rc<RefCell<State>>, canvas: &Ht
                         state_copy_2.borrow().get_width() as f64,
                         state_copy_2.borrow().get_height() as f64,
                     );
-                    context_copy.draw_image_with_html_image_element(
-                        &image_el,
-                        0.0,
-                        0.0,
-                    );
-
+                    context_copy.draw_image_with_html_image_element(&image_el, 0.0, 0.0);
                 }) as Box<dyn FnMut()>);
-
 
                 html_image_el.set_onload(Some(handle_onload.as_ref().unchecked_ref()));
 
@@ -178,8 +189,6 @@ fn get_undo_element(document: &Document, state: &Rc<RefCell<State>>, canvas: &Ht
             }
             None => {}
         }
-
-
     }) as Box<dyn FnMut()>);
 
     el.add_event_listener_with_callback("click", handle_click.as_ref().unchecked_ref())?;

@@ -30,7 +30,7 @@ impl State {
             is_drawing: false,
             color: DEFAULT_COLOR.to_string(),
             pen_size: DEFAULT_PEN_SIZE,
-            undo_list: vec!(),
+            undo_list: vec![],
         }
     }
 

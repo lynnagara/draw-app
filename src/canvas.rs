@@ -22,7 +22,9 @@ pub fn init(canvas: &HtmlCanvasElement, state: &Rc<RefCell<State>>) -> Result<()
         let canvas_copy = canvas.clone();
         let handle_mouse_down = Closure::wrap(Box::new(move |event: MouseEvent| {
             state_copy.borrow_mut().start_drawing();
-            state_copy.borrow_mut().add_undo_state(canvas_copy.to_data_url().unwrap());
+            state_copy
+                .borrow_mut()
+                .add_undo_state(canvas_copy.to_data_url().unwrap());
             let new_x = event.offset_x() as f64;
             let new_y = event.offset_y() as f64;
             context_copy.begin_path();
