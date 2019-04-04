@@ -1,7 +1,9 @@
-pub static COLORS: [(&str, &str); 4] = [
+pub static COLORS: [(&str, &str); 6] = [
     ("Black", "#000000"),
     ("Green", "#3DC06C"),
     ("Red", "#FF0000"),
+    ("Blue", "#4F8DE4"),
+    ("Yellow", "#FAE589"),
     ("White", "#FFFFFF"),
 ];
 
