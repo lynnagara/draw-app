@@ -20,6 +20,7 @@ pub struct State {
     color: String,
     pen_size: f64,
     undo_list: Vec<String>,
+    redo_list: Vec<String>,
 }
 
 impl State {
@@ -31,10 +32,12 @@ impl State {
             color: DEFAULT_COLOR.to_string(),
             pen_size: DEFAULT_PEN_SIZE,
             undo_list: vec![],
+            redo_list: vec![],
         }
     }
 
     pub fn start_drawing(&mut self) {
+        self.redo_list = vec![];
         self.is_drawing = true;
     }
 
@@ -74,7 +77,15 @@ impl State {
         self.undo_list.push(prev);
     }
 
+    pub fn add_redo_state(&mut self, next: String) {
+        self.redo_list.push(next);
+    }
+
     pub fn undo(&mut self) -> Option<String> {
         self.undo_list.pop()
+    }
+
+    pub fn redo(&mut self) -> Option<String> {
+        self.redo_list.pop()
     }
 }

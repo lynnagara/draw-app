@@ -12,6 +12,11 @@ use crate::state::{State, COLORS, PEN_SIZES};
 
 const generic_box_styles: &str = "height: 50px; border-bottom: 1px solid #efefef; display: flex; align-items: center; justify-content: center;";
 
+enum UndoRedo {
+    Undo,
+    Redo,
+}
+
 pub fn init(
     toolbar: &Element,
     canvas: &HtmlCanvasElement,
@@ -32,8 +37,10 @@ pub fn init(
     let clear_el = get_clear_element(&document, state, canvas)?;
     toolbar.append_child(&clear_el);
 
-    let undo_el = get_undo_element(&document, state, canvas)?;
+    let undo_el = get_undo_redo_element(UndoRedo::Undo, &document, state, canvas)?;
     toolbar.append_child(&undo_el);
+    let redo_el = get_undo_redo_element(UndoRedo::Redo, &document, state, canvas)?;
+    toolbar.append_child(&redo_el);
 
     Ok(())
 }
@@ -139,7 +146,8 @@ fn get_clear_element(
     Ok(el)
 }
 
-fn get_undo_element(
+fn get_undo_redo_element(
+    undo_or_redo: UndoRedo,
     document: &Document,
     state: &Rc<RefCell<State>>,
     canvas: &HtmlCanvasElement,
@@ -150,9 +158,16 @@ fn get_undo_element(
         "style",
         &format!("{} font-size: 11px; cursor: default;", generic_box_styles),
     );
-    el.set_inner_html("undo");
+    let text = match undo_or_redo {
+        UndoRedo::Undo => "undo",
+        UndoRedo::Redo => "redo",
+    };
+
+    el.set_inner_html(text);
 
     let state_copy = state.clone();
+
+    let canvas_copy = canvas.clone();
 
     let context = canvas
         .get_context("2d")
@@ -162,11 +177,25 @@ fn get_undo_element(
         .unwrap();
 
     let handle_click = Closure::wrap(Box::new(move || {
-        let prev = state_copy.borrow_mut().undo();
+        let target = match undo_or_redo {
+            UndoRedo::Undo => {
+                state_copy
+                    .borrow_mut()
+                    .add_redo_state(canvas_copy.to_data_url().unwrap());
+                state_copy.borrow_mut().undo()
+            }
+            UndoRedo::Redo => {
+                state_copy
+                    .borrow_mut()
+                    .add_undo_state(canvas_copy.to_data_url().unwrap());
+                state_copy.borrow_mut().redo()
+            },
+        };
+
         let state_copy_2 = state_copy.clone();
         let context_copy = context.clone();
 
-        match prev {
+        match target {
             Some(p) => {
                 let image_el = HtmlImageElement::new().unwrap();
                 image_el.set_src(&p);
