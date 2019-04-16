@@ -1,4 +1,4 @@
-import {init} from "../pkg/d0.js"
+import {init} from "./d0.js"
 
 init()
 

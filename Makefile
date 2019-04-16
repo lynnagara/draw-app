@@ -6,3 +6,4 @@ build-gh-pages:
 	cp static/main.js docs
 	cp pkg/d0.js docs
 	cp pkg/d0_bg.wasm docs
+	sed -i '' 's/..\/pkg\//.\//' docs/main.js

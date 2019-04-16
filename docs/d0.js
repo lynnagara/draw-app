@@ -15,10 +15,6 @@ heap.push(undefined, null, true, false);
 
 function getObject(idx) { return heap[idx]; }
 
-export function __widl_f_log_1_(arg0) {
-    console.log(getObject(arg0));
-}
-
 export function __widl_instanceof_CanvasRenderingContext2D(idx) { return getObject(idx) instanceof CanvasRenderingContext2D ? 1 : 0; }
 
 let cachegetUint32Memory = null;
@@ -390,7 +386,7 @@ export function __wbindgen_throw(ptr, len) {
     throw new Error(getStringFromWasm(ptr, len));
 }
 
-export function __wbindgen_closure_wrapper77(a, b, _ignored) {
+export function __wbindgen_closure_wrapper74(a, b, _ignored) {
     const f = wasm.__wbg_function_table.get(24);
     const d = wasm.__wbg_function_table.get(25);
     const cb = function() {
@@ -414,7 +410,7 @@ export function __wbindgen_closure_wrapper77(a, b, _ignored) {
     return addHeapObject(real);
 }
 
-export function __wbindgen_closure_wrapper79(a, b, _ignored) {
+export function __wbindgen_closure_wrapper76(a, b, _ignored) {
     const f = wasm.__wbg_function_table.get(28);
     const d = wasm.__wbg_function_table.get(25);
     const cb = function(arg0) {
