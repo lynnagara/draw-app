@@ -1,11 +1,15 @@
-import * as wasm from './d0_bg';
+const __exports = {};
+
+let wasm;
 
 /**
 * @returns {void}
 */
-export function init() {
-    return wasm.init();
+export function init_app() {
+    return wasm.init_app();
 }
+
+__exports.init_app = init_app;
 
 const heap = new Array(32);
 
@@ -15,7 +19,9 @@ heap.push(undefined, null, true, false);
 
 function getObject(idx) { return heap[idx]; }
 
-export function __widl_instanceof_CanvasRenderingContext2D(idx) { return getObject(idx) instanceof CanvasRenderingContext2D ? 1 : 0; }
+function __widl_instanceof_CanvasRenderingContext2D(idx) { return getObject(idx) instanceof CanvasRenderingContext2D ? 1 : 0; }
+
+__exports.__widl_instanceof_CanvasRenderingContext2D = __widl_instanceof_CanvasRenderingContext2D;
 
 let cachegetUint32Memory = null;
 function getUint32Memory() {
@@ -42,7 +48,7 @@ function handleError(exnptr, e) {
     view[exnptr / 4 + 1] = addHeapObject(e);
 }
 
-export function __widl_f_draw_image_with_html_image_element_CanvasRenderingContext2D(arg0, arg1, arg2, arg3, exnptr) {
+function __widl_f_draw_image_with_html_image_element_CanvasRenderingContext2D(arg0, arg1, arg2, arg3, exnptr) {
     try {
         getObject(arg0).drawImage(getObject(arg1), arg2, arg3);
     } catch (e) {
@@ -50,37 +56,55 @@ export function __widl_f_draw_image_with_html_image_element_CanvasRenderingConte
     }
 }
 
-export function __widl_f_begin_path_CanvasRenderingContext2D(arg0) {
+__exports.__widl_f_draw_image_with_html_image_element_CanvasRenderingContext2D = __widl_f_draw_image_with_html_image_element_CanvasRenderingContext2D;
+
+function __widl_f_begin_path_CanvasRenderingContext2D(arg0) {
     getObject(arg0).beginPath();
 }
 
-export function __widl_f_stroke_CanvasRenderingContext2D(arg0) {
+__exports.__widl_f_begin_path_CanvasRenderingContext2D = __widl_f_begin_path_CanvasRenderingContext2D;
+
+function __widl_f_stroke_CanvasRenderingContext2D(arg0) {
     getObject(arg0).stroke();
 }
 
-export function __widl_f_set_stroke_style_CanvasRenderingContext2D(arg0, arg1) {
+__exports.__widl_f_stroke_CanvasRenderingContext2D = __widl_f_stroke_CanvasRenderingContext2D;
+
+function __widl_f_set_stroke_style_CanvasRenderingContext2D(arg0, arg1) {
     getObject(arg0).strokeStyle = getObject(arg1);
 }
 
-export function __widl_f_set_line_width_CanvasRenderingContext2D(arg0, arg1) {
+__exports.__widl_f_set_stroke_style_CanvasRenderingContext2D = __widl_f_set_stroke_style_CanvasRenderingContext2D;
+
+function __widl_f_set_line_width_CanvasRenderingContext2D(arg0, arg1) {
     getObject(arg0).lineWidth = arg1;
 }
 
-export function __widl_f_line_to_CanvasRenderingContext2D(arg0, arg1, arg2) {
+__exports.__widl_f_set_line_width_CanvasRenderingContext2D = __widl_f_set_line_width_CanvasRenderingContext2D;
+
+function __widl_f_line_to_CanvasRenderingContext2D(arg0, arg1, arg2) {
     getObject(arg0).lineTo(arg1, arg2);
 }
 
-export function __widl_f_move_to_CanvasRenderingContext2D(arg0, arg1, arg2) {
+__exports.__widl_f_line_to_CanvasRenderingContext2D = __widl_f_line_to_CanvasRenderingContext2D;
+
+function __widl_f_move_to_CanvasRenderingContext2D(arg0, arg1, arg2) {
     getObject(arg0).moveTo(arg1, arg2);
 }
 
-export function __widl_f_clear_rect_CanvasRenderingContext2D(arg0, arg1, arg2, arg3, arg4) {
+__exports.__widl_f_move_to_CanvasRenderingContext2D = __widl_f_move_to_CanvasRenderingContext2D;
+
+function __widl_f_clear_rect_CanvasRenderingContext2D(arg0, arg1, arg2, arg3, arg4) {
     getObject(arg0).clearRect(arg1, arg2, arg3, arg4);
 }
 
-export function __widl_f_fill_rect_CanvasRenderingContext2D(arg0, arg1, arg2, arg3, arg4) {
+__exports.__widl_f_clear_rect_CanvasRenderingContext2D = __widl_f_clear_rect_CanvasRenderingContext2D;
+
+function __widl_f_fill_rect_CanvasRenderingContext2D(arg0, arg1, arg2, arg3, arg4) {
     getObject(arg0).fillRect(arg1, arg2, arg3, arg4);
 }
+
+__exports.__widl_f_fill_rect_CanvasRenderingContext2D = __widl_f_fill_rect_CanvasRenderingContext2D;
 
 let cachedTextDecoder = new TextDecoder('utf-8');
 
@@ -96,7 +120,7 @@ function getStringFromWasm(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory().subarray(ptr, ptr + len));
 }
 
-export function __widl_f_create_element_Document(arg0, arg1, arg2, exnptr) {
+function __widl_f_create_element_Document(arg0, arg1, arg2, exnptr) {
     let varg1 = getStringFromWasm(arg1, arg2);
     try {
         return addHeapObject(getObject(arg0).createElement(varg1));
@@ -105,20 +129,26 @@ export function __widl_f_create_element_Document(arg0, arg1, arg2, exnptr) {
     }
 }
 
+__exports.__widl_f_create_element_Document = __widl_f_create_element_Document;
+
 function isLikeNone(x) {
     return x === undefined || x === null;
 }
 
-export function __widl_f_body_Document(arg0) {
+function __widl_f_body_Document(arg0) {
 
     const val = getObject(arg0).body;
     return isLikeNone(val) ? 0 : addHeapObject(val);
 
 }
 
-export function __widl_instanceof_Element(idx) { return getObject(idx) instanceof Element ? 1 : 0; }
+__exports.__widl_f_body_Document = __widl_f_body_Document;
 
-export function __widl_f_set_attribute_Element(arg0, arg1, arg2, arg3, arg4, exnptr) {
+function __widl_instanceof_Element(idx) { return getObject(idx) instanceof Element ? 1 : 0; }
+
+__exports.__widl_instanceof_Element = __widl_instanceof_Element;
+
+function __widl_f_set_attribute_Element(arg0, arg1, arg2, arg3, arg4, exnptr) {
     let varg1 = getStringFromWasm(arg1, arg2);
     let varg3 = getStringFromWasm(arg3, arg4);
     try {
@@ -128,20 +158,28 @@ export function __widl_f_set_attribute_Element(arg0, arg1, arg2, arg3, arg4, exn
     }
 }
 
-export function __widl_f_client_width_Element(arg0) {
+__exports.__widl_f_set_attribute_Element = __widl_f_set_attribute_Element;
+
+function __widl_f_client_width_Element(arg0) {
     return getObject(arg0).clientWidth;
 }
 
-export function __widl_f_client_height_Element(arg0) {
+__exports.__widl_f_client_width_Element = __widl_f_client_width_Element;
+
+function __widl_f_client_height_Element(arg0) {
     return getObject(arg0).clientHeight;
 }
 
-export function __widl_f_set_inner_html_Element(arg0, arg1, arg2) {
+__exports.__widl_f_client_height_Element = __widl_f_client_height_Element;
+
+function __widl_f_set_inner_html_Element(arg0, arg1, arg2) {
     let varg1 = getStringFromWasm(arg1, arg2);
     getObject(arg0).innerHTML = varg1;
 }
 
-export function __widl_f_add_event_listener_with_callback_EventTarget(arg0, arg1, arg2, arg3, exnptr) {
+__exports.__widl_f_set_inner_html_Element = __widl_f_set_inner_html_Element;
+
+function __widl_f_add_event_listener_with_callback_EventTarget(arg0, arg1, arg2, arg3, exnptr) {
     let varg1 = getStringFromWasm(arg1, arg2);
     try {
         getObject(arg0).addEventListener(varg1, getObject(arg3));
@@ -150,9 +188,13 @@ export function __widl_f_add_event_listener_with_callback_EventTarget(arg0, arg1
     }
 }
 
-export function __widl_instanceof_HTMLCanvasElement(idx) { return getObject(idx) instanceof HTMLCanvasElement ? 1 : 0; }
+__exports.__widl_f_add_event_listener_with_callback_EventTarget = __widl_f_add_event_listener_with_callback_EventTarget;
 
-export function __widl_f_get_context_HTMLCanvasElement(arg0, arg1, arg2, exnptr) {
+function __widl_instanceof_HTMLCanvasElement(idx) { return getObject(idx) instanceof HTMLCanvasElement ? 1 : 0; }
+
+__exports.__widl_instanceof_HTMLCanvasElement = __widl_instanceof_HTMLCanvasElement;
+
+function __widl_f_get_context_HTMLCanvasElement(arg0, arg1, arg2, exnptr) {
     let varg1 = getStringFromWasm(arg1, arg2);
     try {
 
@@ -163,6 +205,8 @@ export function __widl_f_get_context_HTMLCanvasElement(arg0, arg1, arg2, exnptr)
         handleError(exnptr, e);
     }
 }
+
+__exports.__widl_f_get_context_HTMLCanvasElement = __widl_f_get_context_HTMLCanvasElement;
 
 let cachedTextEncoder = new TextEncoder('utf-8');
 
@@ -200,7 +244,7 @@ if (typeof cachedTextEncoder.encodeInto === 'function') {
     };
 }
 
-export function __widl_f_to_data_url_HTMLCanvasElement(ret, arg0, exnptr) {
+function __widl_f_to_data_url_HTMLCanvasElement(ret, arg0, exnptr) {
     try {
 
         const retptr = passStringToWasm(getObject(arg0).toDataURL());
@@ -214,21 +258,31 @@ export function __widl_f_to_data_url_HTMLCanvasElement(ret, arg0, exnptr) {
     }
 }
 
-export function __widl_f_set_width_HTMLCanvasElement(arg0, arg1) {
+__exports.__widl_f_to_data_url_HTMLCanvasElement = __widl_f_to_data_url_HTMLCanvasElement;
+
+function __widl_f_set_width_HTMLCanvasElement(arg0, arg1) {
     getObject(arg0).width = arg1;
 }
 
-export function __widl_f_set_height_HTMLCanvasElement(arg0, arg1) {
+__exports.__widl_f_set_width_HTMLCanvasElement = __widl_f_set_width_HTMLCanvasElement;
+
+function __widl_f_set_height_HTMLCanvasElement(arg0, arg1) {
     getObject(arg0).height = arg1;
 }
 
-export function __widl_instanceof_HTMLElement(idx) { return getObject(idx) instanceof HTMLElement ? 1 : 0; }
+__exports.__widl_f_set_height_HTMLCanvasElement = __widl_f_set_height_HTMLCanvasElement;
 
-export function __widl_f_set_onload_HTMLElement(arg0, arg1) {
+function __widl_instanceof_HTMLElement(idx) { return getObject(idx) instanceof HTMLElement ? 1 : 0; }
+
+__exports.__widl_instanceof_HTMLElement = __widl_instanceof_HTMLElement;
+
+function __widl_f_set_onload_HTMLElement(arg0, arg1) {
     getObject(arg0).onload = getObject(arg1);
 }
 
-export function __widl_f_new_Image(exnptr) {
+__exports.__widl_f_set_onload_HTMLElement = __widl_f_set_onload_HTMLElement;
+
+function __widl_f_new_Image(exnptr) {
     try {
         return addHeapObject(new Image());
     } catch (e) {
@@ -236,20 +290,28 @@ export function __widl_f_new_Image(exnptr) {
     }
 }
 
-export function __widl_f_set_src_HTMLImageElement(arg0, arg1, arg2) {
+__exports.__widl_f_new_Image = __widl_f_new_Image;
+
+function __widl_f_set_src_HTMLImageElement(arg0, arg1, arg2) {
     let varg1 = getStringFromWasm(arg1, arg2);
     getObject(arg0).src = varg1;
 }
 
-export function __widl_f_offset_x_MouseEvent(arg0) {
+__exports.__widl_f_set_src_HTMLImageElement = __widl_f_set_src_HTMLImageElement;
+
+function __widl_f_offset_x_MouseEvent(arg0) {
     return getObject(arg0).offsetX;
 }
 
-export function __widl_f_offset_y_MouseEvent(arg0) {
+__exports.__widl_f_offset_x_MouseEvent = __widl_f_offset_x_MouseEvent;
+
+function __widl_f_offset_y_MouseEvent(arg0) {
     return getObject(arg0).offsetY;
 }
 
-export function __widl_f_append_child_Node(arg0, arg1, exnptr) {
+__exports.__widl_f_offset_y_MouseEvent = __widl_f_offset_y_MouseEvent;
+
+function __widl_f_append_child_Node(arg0, arg1, exnptr) {
     try {
         return addHeapObject(getObject(arg0).appendChild(getObject(arg1)));
     } catch (e) {
@@ -257,21 +319,29 @@ export function __widl_f_append_child_Node(arg0, arg1, exnptr) {
     }
 }
 
-export function __widl_instanceof_Window(idx) { return getObject(idx) instanceof Window ? 1 : 0; }
+__exports.__widl_f_append_child_Node = __widl_f_append_child_Node;
 
-export function __widl_f_document_Window(arg0) {
+function __widl_instanceof_Window(idx) { return getObject(idx) instanceof Window ? 1 : 0; }
+
+__exports.__widl_instanceof_Window = __widl_instanceof_Window;
+
+function __widl_f_document_Window(arg0) {
 
     const val = getObject(arg0).document;
     return isLikeNone(val) ? 0 : addHeapObject(val);
 
 }
 
-export function __wbg_newnoargs_b4526aa2a6db81de(arg0, arg1) {
+__exports.__widl_f_document_Window = __widl_f_document_Window;
+
+function __wbg_newnoargs_b4526aa2a6db81de(arg0, arg1) {
     let varg0 = getStringFromWasm(arg0, arg1);
     return addHeapObject(new Function(varg0));
 }
 
-export function __wbg_call_a7a8823c404228ab(arg0, arg1, exnptr) {
+__exports.__wbg_newnoargs_b4526aa2a6db81de = __wbg_newnoargs_b4526aa2a6db81de;
+
+function __wbg_call_a7a8823c404228ab(arg0, arg1, exnptr) {
     try {
         return addHeapObject(getObject(arg0).call(getObject(arg1)));
     } catch (e) {
@@ -279,9 +349,13 @@ export function __wbg_call_a7a8823c404228ab(arg0, arg1, exnptr) {
     }
 }
 
-export function __wbindgen_string_new(p, l) { return addHeapObject(getStringFromWasm(p, l)); }
+__exports.__wbg_call_a7a8823c404228ab = __wbg_call_a7a8823c404228ab;
 
-export function __wbindgen_debug_string(i, len_ptr) {
+function __wbindgen_string_new(p, l) { return addHeapObject(getStringFromWasm(p, l)); }
+
+__exports.__wbindgen_string_new = __wbindgen_string_new;
+
+function __wbindgen_debug_string(i, len_ptr) {
     const debug_str =
     val => {
         // primitive types
@@ -357,6 +431,8 @@ getUint32Memory()[len_ptr / 4] = WASM_VECTOR_LEN;
 return ptr;
 }
 
+__exports.__wbindgen_debug_string = __wbindgen_debug_string;
+
 function dropObject(idx) {
     if (idx < 36) return;
     heap[idx] = heap_next;
@@ -369,7 +445,7 @@ function takeObject(idx) {
     return ret;
 }
 
-export function __wbindgen_cb_drop(i) {
+function __wbindgen_cb_drop(i) {
     const obj = takeObject(i).original;
     if (obj.cnt-- == 1) {
         obj.a = 0;
@@ -378,15 +454,23 @@ export function __wbindgen_cb_drop(i) {
     return 0;
 }
 
-export const __wbindgen_cb_forget = dropObject;
+__exports.__wbindgen_cb_drop = __wbindgen_cb_drop;
 
-export function __wbindgen_rethrow(idx) { throw takeObject(idx); }
+const __wbindgen_cb_forget = dropObject;
 
-export function __wbindgen_throw(ptr, len) {
+__exports.__wbindgen_cb_forget = __wbindgen_cb_forget;
+
+function __wbindgen_rethrow(idx) { throw takeObject(idx); }
+
+__exports.__wbindgen_rethrow = __wbindgen_rethrow;
+
+function __wbindgen_throw(ptr, len) {
     throw new Error(getStringFromWasm(ptr, len));
 }
 
-export function __wbindgen_closure_wrapper74(a, b, _ignored) {
+__exports.__wbindgen_throw = __wbindgen_throw;
+
+function __wbindgen_closure_wrapper74(a, b, _ignored) {
     const f = wasm.__wbg_function_table.get(24);
     const d = wasm.__wbg_function_table.get(25);
     const cb = function() {
@@ -410,7 +494,9 @@ export function __wbindgen_closure_wrapper74(a, b, _ignored) {
     return addHeapObject(real);
 }
 
-export function __wbindgen_closure_wrapper76(a, b, _ignored) {
+__exports.__wbindgen_closure_wrapper74 = __wbindgen_closure_wrapper74;
+
+function __wbindgen_closure_wrapper76(a, b, _ignored) {
     const f = wasm.__wbg_function_table.get(28);
     const d = wasm.__wbg_function_table.get(25);
     const cb = function(arg0) {
@@ -434,9 +520,51 @@ export function __wbindgen_closure_wrapper76(a, b, _ignored) {
     return addHeapObject(real);
 }
 
-export function __wbindgen_object_clone_ref(idx) {
+__exports.__wbindgen_closure_wrapper76 = __wbindgen_closure_wrapper76;
+
+function __wbindgen_object_clone_ref(idx) {
     return addHeapObject(getObject(idx));
 }
 
-export function __wbindgen_object_drop_ref(i) { dropObject(i); }
+__exports.__wbindgen_object_clone_ref = __wbindgen_object_clone_ref;
+
+function __wbindgen_object_drop_ref(i) { dropObject(i); }
+
+__exports.__wbindgen_object_drop_ref = __wbindgen_object_drop_ref;
+
+function init(module_or_path, maybe_memory) {
+    let result;
+    const imports = { './d0': __exports };
+    if (module_or_path instanceof URL || typeof module_or_path === 'string' || module_or_path instanceof Request) {
+
+        const response = fetch(module_or_path);
+        if (typeof WebAssembly.instantiateStreaming === 'function') {
+            result = WebAssembly.instantiateStreaming(response, imports)
+            .catch(e => {
+                console.warn("`WebAssembly.instantiateStreaming` failed. Assuming this is because your server does not serve wasm with `application/wasm` MIME type. Falling back to `WebAssembly.instantiate` which is slower. Original error:\n", e);
+                return response
+                .then(r => r.arrayBuffer())
+                .then(bytes => WebAssembly.instantiate(bytes, imports));
+            });
+        } else {
+            result = response
+            .then(r => r.arrayBuffer())
+            .then(bytes => WebAssembly.instantiate(bytes, imports));
+        }
+    } else {
+
+        result = WebAssembly.instantiate(module_or_path, imports)
+        .then(instance => {
+            return { instance, module: module_or_path };
+        });
+    }
+    return result.then(({instance, module}) => {
+        wasm = instance.exports;
+        init.__wbindgen_wasm_module = module;
+        wasm.__wbindgen_start();
+        return wasm;
+    });
+}
+
+export default init;
 

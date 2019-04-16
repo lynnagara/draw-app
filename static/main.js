@@ -1,4 +1,4 @@
-import {init} from "../pkg/d0.js"
+import {init_app} from "../pkg/d0.js"
 
-init()
+init_app()
 

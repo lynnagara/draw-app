@@ -13,8 +13,8 @@ mod toolbar;
 
 static TOOLBAR_WIDTH: u32 = 50;
 
-#[wasm_bindgen]
-pub fn init() -> Result<(), JsValue> {
+#[wasm_bindgen(start)]
+pub fn init_app() -> Result<(), JsValue> {
     let window = window().expect("Could not find `window`");
     let document = window.document().expect("Could not find `document`");
     let body = document.body().expect("Could not find `body` element");
@@ -35,12 +35,12 @@ pub fn init() -> Result<(), JsValue> {
     canvas_el.set_height(h);
 
     root.append_child(&canvas_el)?;
-    canvas::init(&canvas_el, &state);
+    canvas::init_canvas(&canvas_el, &state);
 
     let toolbar_el = document.create_element("div")?.dyn_into::<Element>()?;
     toolbar_el.set_attribute("style", "width:100%; border-left: 1px solid #efefef;");
     body.append_child(&toolbar_el)?;
-    toolbar::init(&toolbar_el, &canvas_el, &state);
+    toolbar::init_toolbar(&toolbar_el, &canvas_el, &state);
 
     Ok(())
 }

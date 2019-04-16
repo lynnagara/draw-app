@@ -17,7 +17,7 @@ enum UndoRedo {
     Redo,
 }
 
-pub fn init(
+pub fn init_toolbar(
     toolbar: &Element,
     canvas: &HtmlCanvasElement,
     state: &Rc<RefCell<State>>,

@@ -2,4 +2,4 @@
 /**
 * @returns {void} 
 */
-export function init(): void;
+export function init_app(): void;
