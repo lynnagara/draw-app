@@ -10,10 +10,9 @@
   </head>
   <body>
     <script type="module">
-        import { init_app, default as init } from './pkg/d0.js';
+        import { default as init } from './pkg/d0.js';
         async function run() {
           await init('./pkg/d0_bg.wasm');
-          init_app()
         }
         run();
       </script>

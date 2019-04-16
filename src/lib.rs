@@ -13,7 +13,7 @@ mod toolbar;
 
 static TOOLBAR_WIDTH: u32 = 50;
 
-#[wasm_bindgen(start)]
+#[wasm_bindgen]
 pub fn init_app() -> Result<(), JsValue> {
     let window = window().expect("Could not find `window`");
     let document = window.document().expect("Could not find `document`");

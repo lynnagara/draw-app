@@ -561,7 +561,7 @@ function init(module_or_path, maybe_memory) {
     return result.then(({instance, module}) => {
         wasm = instance.exports;
         init.__wbindgen_wasm_module = module;
-        wasm.__wbindgen_start();
+
         return wasm;
     });
 }

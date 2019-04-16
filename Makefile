@@ -1,4 +1,5 @@
 build-gh-pages:
+	wasm-pack build --target web
 	rm -rf docs
 	mkdir docs
 	cp static/index.html docs
@@ -7,4 +8,5 @@ build-gh-pages:
 	cp pkg/d0_bg.wasm docs/pkg
 
 build-static:
+	wasm-pack build --target web
 	cp -r pkg static/pkg
