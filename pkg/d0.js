@@ -1,4 +1,4 @@
-import * as wasm from './d0_bg.wasm';
+import * as wasm from './d0_bg';
 
 /**
 * @returns {void}

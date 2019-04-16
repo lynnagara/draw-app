@@ -1,5 +1,4 @@
 /target
-/pkg
 /bin
 /static/node_modules/*
 **/*.rs.bk
