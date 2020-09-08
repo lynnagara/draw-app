@@ -10,7 +10,12 @@ use web_sys::{
 
 use crate::state::{State, COLORS, PEN_SIZES};
 
-const generic_box_styles: &str = "height: 50px; border-bottom: 1px solid #efefef; display: flex; align-items: center; justify-content: center;";
+const GENERIC_BOX_STYLES: &str =
+    "height: 50px; \
+    border-bottom: 1px solid #efefef; \
+    display: flex; \
+    align-items: center; \
+    justify-content: center;";
 
 enum UndoRedo {
     Undo,
@@ -35,12 +40,12 @@ pub fn init_toolbar(
     }
 
     let clear_el = get_clear_element(&document, state, canvas)?;
-    toolbar.append_child(&clear_el);
+    toolbar.append_child(&clear_el)?;
 
     let undo_el = get_undo_redo_element(UndoRedo::Undo, &document, state, canvas)?;
-    toolbar.append_child(&undo_el);
+    toolbar.append_child(&undo_el)?;
     let redo_el = get_undo_redo_element(UndoRedo::Redo, &document, state, canvas)?;
-    toolbar.append_child(&redo_el);
+    toolbar.append_child(&redo_el)?;
 
     Ok(())
 }
@@ -54,8 +59,8 @@ fn get_color_block_element(
 
     el.set_attribute(
         "style",
-        &format!("{} background-color: {};", generic_box_styles, hex),
-    );
+        &format!("{} background-color: {};", GENERIC_BOX_STYLES, hex),
+    )?;
 
     let state_copy = state.clone();
 
@@ -77,7 +82,7 @@ fn get_pen_size_element(
 ) -> Result<Element, JsValue> {
     let el = document.create_element("div")?;
 
-    el.set_attribute("style", generic_box_styles);
+    el.set_attribute("style", GENERIC_BOX_STYLES)?;
 
     let inner_el = document.create_element("div")?;
 
@@ -86,8 +91,8 @@ fn get_pen_size_element(
         size + 2.0,
         size + 2.0
     );
-    inner_el.set_attribute("style", &style);
-    el.append_child(&inner_el);
+    inner_el.set_attribute("style", &style)?;
+    el.append_child(&inner_el)?;
 
     let state_copy = state.clone();
 
@@ -111,8 +116,8 @@ fn get_clear_element(
 
     el.set_attribute(
         "style",
-        &format!("{} font-size: 11px; cursor: default;", generic_box_styles),
-    );
+        &format!("{} font-size: 11px; cursor: default;", GENERIC_BOX_STYLES),
+    )?;
     el.set_inner_html("clear");
 
     let state_copy = state.clone();
@@ -156,8 +161,8 @@ fn get_undo_redo_element(
 
     el.set_attribute(
         "style",
-        &format!("{} font-size: 11px; cursor: default;", generic_box_styles),
-    );
+        &format!("{} font-size: 11px; cursor: default;", GENERIC_BOX_STYLES),
+    )?;
     let text = match undo_or_redo {
         UndoRedo::Undo => "undo",
         UndoRedo::Redo => "redo",
@@ -209,7 +214,9 @@ fn get_undo_redo_element(
                         state_copy_2.borrow().get_width() as f64,
                         state_copy_2.borrow().get_height() as f64,
                     );
-                    context_copy.draw_image_with_html_image_element(&image_el, 0.0, 0.0);
+                    context_copy.draw_image_with_html_image_element(
+                        &image_el, 0.0, 0.0
+                    ).expect("draw_image_with_html_image_element() failed");
                 }) as Box<dyn FnMut()>);
 
                 html_image_el.set_onload(Some(handle_onload.as_ref().unchecked_ref()));
