@@ -24,9 +24,9 @@ pub fn init_app() -> Result<(), JsValue> {
     let state: Rc<RefCell<state::State>> = Rc::new(RefCell::new(state::State::new(w, h)));
 
     let root = document.create_element("div")?;
-    root.set_attribute("style", "min-height: 100%;");
+    root.set_attribute("style", "min-height: 100%;")?;
 
-    body.append_child(&root);
+    body.append_child(&root)?;
 
     let canvas_el = document
         .create_element("canvas")?
@@ -35,12 +35,12 @@ pub fn init_app() -> Result<(), JsValue> {
     canvas_el.set_height(h);
 
     root.append_child(&canvas_el)?;
-    canvas::init_canvas(&canvas_el, &state);
+    canvas::init_canvas(&canvas_el, &state)?;
 
     let toolbar_el = document.create_element("div")?.dyn_into::<Element>()?;
-    toolbar_el.set_attribute("style", "width:100%; border-left: 1px solid #efefef;");
+    toolbar_el.set_attribute("style", "width:100%; border-left: 1px solid #efefef;")?;
     body.append_child(&toolbar_el)?;
-    toolbar::init_toolbar(&toolbar_el, &canvas_el, &state);
+    toolbar::init_toolbar(&toolbar_el, &canvas_el, &state)?;
 
     Ok(())
 }
